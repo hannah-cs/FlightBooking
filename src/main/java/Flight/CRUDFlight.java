@@ -8,11 +8,20 @@ import java.sql.SQLException;
 
 public class CRUDFlight {
 
-    public void createFlight(String flightDetails) {
+    public void createFlight(int flightId, String airline, String origin, String destination, String departureTime, String arrivalTime, double price, int seatsAvailable) {
         try (Connection connection = DatabaseManager.getConnection()) {
             System.out.println("Connected to the database successfully.");
-            String query = "INSERT INTO flight (FlightId, Airline, Origin, Destination, DepartureTime, ArrivalTime, Price, SeatsAvailable) VALUES ("+flightDetails+");";
+            String query = "INSERT INTO flight (FlightId, Airline, Origin, Destination, DepartureTime, ArrivalTime, Price, SeatsAvailable) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
             try (PreparedStatement pst = connection.prepareStatement(query)) {
+                pst.setInt(1, flightId);
+                pst.setString(2, airline);
+                pst.setString(3, origin);
+                pst.setString(4, destination);
+                pst.setString(5, departureTime);
+                pst.setString(6, arrivalTime);
+                pst.setDouble(7, price);
+                pst.setInt(8, seatsAvailable);
+
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Flight created successfully.");
@@ -20,12 +29,12 @@ public class CRUDFlight {
                     System.out.println("Failed to create flight.");
                 }
             } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error connecting to the database");
             e.printStackTrace();
         }
-    } catch (SQLException e) {
-        System.out.println("Error connecting to the database");
-        e.printStackTrace();
-    }
     }
 
     public void selectFlightbyOrigin(String origin){
@@ -82,16 +91,25 @@ public class CRUDFlight {
         }
     }
 
-    public void updateExistingFlight (int flightId, String airline, String origin, String destination, String deptTime, String arrTime, Double price, int seats){
+    public void updateExistingFlight(int flightId, String airline, String origin, String destination, String deptTime, String arrTime, double price, int seats) {
         try (Connection connection = DatabaseManager.getConnection()) {
             System.out.println("Connected to the database successfully.");
-            String query = "UPDATE flight SET Airline = '"+airline+"', origin = '"+origin+"', destination = '"+destination+"', departureTime = '"+deptTime+"', arrivalTime = '"+arrTime+"', price = "+price+", SeatsAvailable = "+seats+" WHERE flightId = "+flightId+";";
+            String query = "UPDATE flight SET Airline = ?, origin = ?, destination = ?, departureTime = ?, arrivalTime = ?, price = ?, SeatsAvailable = ? WHERE flightId = ?;";
             try (PreparedStatement pst = connection.prepareStatement(query)) {
+                pst.setString(1, airline);
+                pst.setString(2, origin);
+                pst.setString(3, destination);
+                pst.setString(4, deptTime);
+                pst.setString(5, arrTime);
+                pst.setDouble(6, price);
+                pst.setInt(7, seats);
+                pst.setInt(8, flightId);
+
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Flight updated successfully.");
                 } else {
-                    System.out.println("Failed to create flight.");
+                    System.out.println("Failed to update flight.");
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -101,6 +119,7 @@ public class CRUDFlight {
             e.printStackTrace();
         }
     }
+
         public void displayAllFlights () {
             try (Connection connection = DatabaseManager.getConnection()) {
                 System.out.println("Connected to the database successfully. All flights:");

@@ -12,8 +12,13 @@ public class CRUDCustomer {
     public void createCustomer(int customerId, String name, String email, long phone) {
         try (Connection connection = DatabaseManager.getConnection()) {
             System.out.println("Connected to the database successfully.");
-            String query = "INSERT INTO customer (CustomerId, Name, Email, Phone) VALUES ("+customerId+", '"+name+"', '"+email+"', "+phone+");";
+            String query = "INSERT INTO customer (CustomerId, Name, Email, Phone) VALUES (?, ?, ?, ?);";
             try (PreparedStatement pst = connection.prepareStatement(query)) {
+                pst.setInt(1, customerId);
+                pst.setString(2, name);
+                pst.setString(3, email);
+                pst.setLong(4, phone);
+
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Customer created successfully.");
@@ -59,8 +64,13 @@ public class CRUDCustomer {
     public void updateExistingCustomer(int customerId, String name, String email, long phone) {
         try (Connection connection = DatabaseManager.getConnection()) {
             System.out.println("Connected to the database successfully.");
-            String query = "UPDATE customer SET Name = '" + name + "', Email = '" + email + "', Phone = '" + phone + "' WHERE CustomerId = " + customerId + ";";
+            String query = "UPDATE customer SET Name = ?, Email = ?, Phone = ? WHERE CustomerId = ?;";
             try (PreparedStatement pst = connection.prepareStatement(query)) {
+                pst.setString(1, name);
+                pst.setString(2, email);
+                pst.setLong(3, phone);
+                pst.setInt(4, customerId);
+
                 int rowsAffected = pst.executeUpdate();
                 if (rowsAffected > 0) {
                     System.out.println("Customer updated successfully.");
