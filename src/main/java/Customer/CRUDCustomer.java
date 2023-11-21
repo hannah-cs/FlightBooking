@@ -25,6 +25,7 @@ public class CRUDCustomer {
                 } else {
                     System.out.println("Failed to create customer.");
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -49,6 +50,7 @@ public class CRUDCustomer {
                         System.out.println("Phone: " + rs.getString("Phone"));
                         System.out.println();
                     }
+                    DatabaseManager.closeConnection(connection);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -77,6 +79,7 @@ public class CRUDCustomer {
                 } else {
                     System.out.println("Failed to update customer.");
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -101,7 +104,7 @@ public class CRUDCustomer {
                     System.out.println("Phone: " + rs.getString("Phone"));
                     System.out.println();
                 }
-
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -123,6 +126,7 @@ public class CRUDCustomer {
                 } else {
                     System.out.println("Failed to delete customer.");
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

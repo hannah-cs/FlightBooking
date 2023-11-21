@@ -28,6 +28,7 @@ public class CRUDFlight {
                 } else {
                     System.out.println("Failed to create flight.");
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -58,6 +59,7 @@ public class CRUDFlight {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
+            DatabaseManager.closeConnection(connection);
         } catch (SQLException e) {
             System.out.println("Error connecting to the database");
             e.printStackTrace();
@@ -82,6 +84,7 @@ public class CRUDFlight {
                     System.out.println("Number of seats available:" + rs.getInt("SeatsAvailable"));
                     System.out.println();
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -111,6 +114,7 @@ public class CRUDFlight {
                 } else {
                     System.out.println("Failed to update flight.");
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -139,7 +143,7 @@ public class CRUDFlight {
                         System.out.println("Number of seats available:" + rs.getInt("SeatsAvailable"));
                         System.out.println();
                     }
-
+                    DatabaseManager.closeConnection(connection);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -163,6 +167,7 @@ public class CRUDFlight {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
+                DatabaseManager.closeConnection(connection);
             } catch (SQLException e) {
                 System.out.println("Error connecting to the database");
                 e.printStackTrace();
