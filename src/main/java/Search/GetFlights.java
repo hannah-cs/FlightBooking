@@ -1,4 +1,4 @@
-package Flight;
+package Search;
 
 import org.example.DBManager.DatabaseManager;
 import java.util.Scanner;
@@ -22,9 +22,10 @@ public class GetFlights {
                 pst.setString(2, "%" + searchTerm + "%");
                 pst.setString(3, "%" + searchTerm + "%");
                 pst.setString(4, "%" + searchTerm + "%");
-
+                boolean foundResults = false;
                 try (ResultSet rs = pst.executeQuery()) {
                     while (rs.next()) {
+                        foundResults = true;
                         System.out.println("Flight ID: " + rs.getInt("FlightId"));
                         System.out.println("Airline: " + rs.getString("Airline"));
                         System.out.println("Origin: " + rs.getString("Origin"));
@@ -35,7 +36,7 @@ public class GetFlights {
                         System.out.println("Number of seats available:" + rs.getInt("SeatsAvailable"));
                         System.out.println();
                     }
-                    if (!rs.next()) {
+                    if (!foundResults) {
                         System.out.println("No results found for "+searchTerm);
                     }
                 } catch (SQLException e) {
