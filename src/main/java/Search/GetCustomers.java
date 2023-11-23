@@ -19,7 +19,7 @@ public class GetCustomers {
                 String query = "SELECT * FROM customer WHERE customerId LIKE ? OR name LIKE ? OR email LIKE ? OR phone LIKE ?;";
 
                 try (PreparedStatement pst = connection.prepareStatement(query)) {
-                    pst.setString(1, "%" + searchTerm + "%");
+                    pst.setString(1, searchTerm);
                     pst.setString(2, "%" + searchTerm + "%");
                     pst.setString(3, "%" + searchTerm + "%");
                     pst.setString(4,  searchTerm );

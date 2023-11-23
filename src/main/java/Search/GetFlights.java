@@ -18,7 +18,7 @@ public class GetFlights {
             String query = "SELECT * FROM flight WHERE flightId LIKE ? OR airline LIKE ? OR origin LIKE ? OR destination LIKE ?;";
 
             try (PreparedStatement pst = connection.prepareStatement(query)) {
-                pst.setString(1, "%" + searchTerm + "%");
+                pst.setString(1, searchTerm);
                 pst.setString(2, "%" + searchTerm + "%");
                 pst.setString(3, "%" + searchTerm + "%");
                 pst.setString(4, "%" + searchTerm + "%");
