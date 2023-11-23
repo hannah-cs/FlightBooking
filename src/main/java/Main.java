@@ -1,5 +1,4 @@
-import Flight.CRUDFlight;
-import Customer.CRUDCustomer;
+import Flight.GetFlights;
 import Joins.CustomersBookings;
 
 public class Main {
@@ -21,10 +20,13 @@ public class Main {
 //        crudCustomer.deleteCustomer(4);
 //        crudCustomer.displayAllCustomers();
 
-        //joins
-        CustomersBookings customersBookings = new CustomersBookings();
-        customersBookings.allCustomersBookings();
-        customersBookings.bookingsByCustomerId(1);
-        customersBookings.bookingsByCustomerEmail("hannah@hannah.com");
+//        //joins
+//        CustomersBookings customersBookings = new CustomersBookings();
+//        customersBookings.allCustomersBookings();
+//        customersBookings.bookingsByCustomerId(1);
+//        customersBookings.bookingsByCustomerEmail("hannah@hannah.com");
+
+        GetFlights getFlights = new GetFlights();
+        getFlights.selectFlightbyUserInput();
     }
 }
