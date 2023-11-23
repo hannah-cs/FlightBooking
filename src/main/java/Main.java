@@ -1,6 +1,3 @@
-import Search.GetBookings;
-import Search.GetCustomers;
-import Search.GetFlights;
 import Search.SearchMenu;
 
 public class Main {
